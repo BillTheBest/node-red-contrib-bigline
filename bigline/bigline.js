@@ -45,20 +45,7 @@ module.exports = function(RED) {
     // biglib changes the configuration to add some properties
     config = bignode.config();
 
-    this.on('input', function(msg) {
-
-      // Messages are from a bigfile with start/end control messages?
-      if (bignode.block_mode(msg)) {
-        return bignode.stream_data_blocks(msg);
-      }
-
-      // if no configuration available from the incoming message, a new one is returned, cloned from default
-      msg.config = bignode.new_config(msg.config); 
-
-      msg.config.filename = msg.config.filename || msg.filename || msg.payload;
-      bignode.stream_data_lines(msg);
-      
-    });
+    this.on('input', bignode.main.bind(bignode));
 
   }
 
