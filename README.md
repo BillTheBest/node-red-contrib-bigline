@@ -1,45 +1,50 @@
 # node-red-contrib-bigline
 
-"Line" parser for Big Nodes
+"Line" parser for Big Nodes. Following the "big csv" and "big file" implementations, here is a node working the same way
 
 ![alt tag](https://cloud.githubusercontent.com/assets/18165555/14586804/b4f80634-04a4-11e6-87c3-eed9f66df330.png)
+
 ![alt tag](https://cloud.githubusercontent.com/assets/18165555/14586805/b810c810-04a4-11e6-9c0e-6ef07fb75963.png)
+
 ![alt tag](https://cloud.githubusercontent.com/assets/18165555/14586807/bb6d2620-04a4-11e6-9a08-10abb99c315f.png)
 
 ## Installation
 ```bash
 npm install node-red-contrib-bigline
+cd node-red-contrib-bigline
+npm install
 ```
 
 ## Principles for Big Nodes
  
-   #1 can handle big data or block mode
+###1 can handle big data or block mode
 
-   That means, in block mode, not only "one message is a whole file" and able to manage start/end control messages
+  That means, in block mode, not only "one message is a whole file" and able to manage start/end control messages
 
-   #2 send start/end messages as well as statuses
+###2 send start/end messages as well as statuses
 
-   That means it uses a second output to give control states (start/end/running and error) control messages
- 
-   #3 tell visually what they are doing
+  That means it uses a second output to give control states (start/end/running and error) control messages
 
-   Visual status on the node tells it's ready/running (blue), all is ok and done (green) or in error (red)
+###3 tell visually what they are doing
+
+  Visual status on the node tells it's ready/running (blue), all is ok and done (green) or in error (red)
 
 ## Usages
 
-  	Big Line is a filter node for node-red to transform data into lines, one message per line. It uses the "byline" library
+Big Line is a filter node for node-red to transform data into lines, one message per line. It uses the "byline" library
 
-  	It works as a filter node that means it takes in the output of a "big file" node or any block node. It's able to read a file by itself to send lines
+It works as a filter node that means it takes in the output of a "big file" node or any block node. It's able to read a file by itself to send lines
 
-  	It has two options as byline offers them:
+It has two options as byline offers them:
 
-  	- data format (utf8, latin, hexdec, base64, ucs2 and ascii)
-  	- keep empty lines
+- data format (utf8, latin, hexdec, base64, ucs2 and ascii)
+- keep empty lines
 
 ## Dependencies
 
-	[byline](https://www.npmjs.com/package/byline)
-	[biglib](https://www.npmjs.com/package/node-red-biglib)
+[byline](https://www.npmjs.com/package/byline) simple line-by-line stream reader
+
+[biglib](https://www.npmjs.com/package/node-red-biglib) library for building node-red flows that supports blocks, high volume
 
 ## Example flow files
 
