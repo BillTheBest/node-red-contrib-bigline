@@ -1,5 +1,6 @@
-# node-red-contrib-bigcsv
-"CSV" for Big Nodes
+# node-red-contrib-bigline
+
+"Line" parser for Big Nodes
 
 ![alt tag](https://cloud.githubusercontent.com/assets/18165555/14586804/b4f80634-04a4-11e6-87c3-eed9f66df330.png)
 ![alt tag](https://cloud.githubusercontent.com/assets/18165555/14586805/b810c810-04a4-11e6-9c0e-6ef07fb75963.png)
@@ -50,10 +51,6 @@ npm install node-red-contrib-bigline
 
 ![alt tag](https://cloud.githubusercontent.com/assets/18165555/14586797/49f684d2-04a4-11e6-890d-68a09b1ef5ab.png)
 
-## Issues
-
-Please contact me using github: https://github.com/Jacques44/node-red-contrib-bigline/issues
-
 ## Author
 
   - Jacques W
@@ -72,7 +69,7 @@ License for the specific language governing permissions and limitations under th
 
 ## Feedback and Support
 
-Please report any issues or suggestions via the [Github Issues list for this repository](https://github.com/Jacques44/node-red-contrib-bigcsv/issues).
+Please report any issues or suggestions via the [Github Issues list for this repository](https://github.com/Jacques44/node-red-contrib-bigline/issues).
 
 For more information, feedback, or community support see the Node-Red Google groups forum at https://groups.google.com/forum/#!forum/node-red
 
