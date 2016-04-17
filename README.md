@@ -11,8 +11,6 @@
 ## Installation
 ```bash
 npm install node-red-contrib-bigline
-cd node-red-contrib-bigline
-npm install
 ```
 
 ## Principles for Big Nodes
