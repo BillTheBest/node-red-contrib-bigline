@@ -13,15 +13,15 @@ npm install node-red-contrib-bigline
 
 ## Principles for Big Nodes
  
-   #1 can handle big data
+   #1 can handle big data or block mode
 
-   That means no "one message is a whole file" and able to manage start/end control messages
+   That means, in block mode, not only "one message is a whole file" and able to manage start/end control messages
 
-   #2 send start/end messages
+   #2 send start/end messages as well as statuses
 
    That means it uses a second output to give control states (start/end/running and error) control messages
  
-   #3 tell what they are doing
+   #3 tell visually what they are doing
 
    Visual status on the node tells it's ready/running (blue), all is ok and done (green) or in error (red)
 
@@ -38,8 +38,8 @@ npm install node-red-contrib-bigline
 
 ## Dependencies
 
-	byline: https://www.npmjs.com/package/byline
-	biglib: https://www.npmjs.com/package/node-red-biglib
+	[byline](https://www.npmjs.com/package/byline)
+	[biglib](https://www.npmjs.com/package/node-red-biglib)
 
 ## Example flow files
 
