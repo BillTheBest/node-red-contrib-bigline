@@ -40,7 +40,7 @@ module.exports = function(RED) {
     // new instance of biglib for this node
     // don't need to require the line parser library as biglib already has it (parser option)
     // status sets to records as this node is sending lines
-    var bignode = new biglib({ config: config, parser: 'line', node: this, status: 'records' });
+    var bignode = new biglib({ config: config, parser: 'line', node: this, status: 'records', generator: 'filename' });
 
     // biglib changes the configuration to add some properties
     config = bignode.config();
