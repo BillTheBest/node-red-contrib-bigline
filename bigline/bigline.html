@@ -19,14 +19,7 @@
 
 <!-- First, the content of the edit dialog is defined.                       -->
 <script type="text/x-red" data-template-name="bigline">
-  <div class="form-row">
-    <label for="node-input-name"><i class="icon-tag"></i> Name</label>
-    <input type="text" id="node-input-name" >
-  </div>
-  <div class="form-row">
-       <label for="node-input-filename"><i class="fa fa-file"></i> <span data-i18n="bigline.label.filename"></span></label>
-       <input type="text" id="node-input-filename" data-i18n="[placeholder]bigline.label.filename">
-  </div>
+
   <div class="form-row">
       <label for="node-input-format"><i class="fa fa-sign-out"></i> <span data-i18n="bigline.label.format"></span></label>
       <select id="node-input-format">    
@@ -43,6 +36,17 @@
       <input type="checkbox" id="node-input-keepEmptyLines" style="display: inline-block; width: auto; vertical-align: top;">
       <label for="node-input-keepEmptyLines" style="width: 70%;"><span data-i18n="bigline.label.keepEmptyLines"></span></label>
   </div>   
+
+  <div class="form-row">
+       <label for="node-input-filename"><i class="fa fa-file"></i> <span data-i18n="bigline.label.filename"></span></label>
+       <input type="text" id="node-input-filename" data-i18n="[placeholder]bigline.label.filename">
+  </div>
+
+  <div class="form-row">
+      <label for="node-input-name"><i class="fa fa-tag"></i><span data-i18n="bigline.label.name"></span></label>
+      <input type="text" id="node-input-name" data-i18n="[placeholder]bigline.label.name">
+  </div>
+
  </script>
 
 
@@ -65,13 +69,12 @@
         // set the icon (held in icons dir below where you save the node)
         icon: "arrow-in.png",      // saved in  icons/myicon.png
 
-        label: function() {     // sets the default label contents
-            return this.name||"Big Line";
+        label: function() {
+            return this.name||this.filename||this._("bigline.label.nodelabel");
         },
-        
-        labelStyle: function() { // sets the class to apply to the label
+        labelStyle: function() {
             return this.name?"node_label_italic":"";
-        },
+        }
 
     });
 </script>
