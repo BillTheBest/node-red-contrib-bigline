@@ -19,18 +19,7 @@
 
 <!-- First, the content of the edit dialog is defined.                       -->
 <script type="text/x-red" data-template-name="bigline">
-
-  <div class="form-row">
-      <label for="node-input-format"><i class="fa fa-sign-out"></i> <span data-i18n="bigline.label.format"></span></label>
-      <select id="node-input-format">    
-          <option value="utf8" data-i18n="bigline.label.line_encoding_utf8"></option>
-          <option value="ascii" data-i18n="bigline.label.line_encoding_ascii"></option>            
-          <option value="base64" data-i18n="bigline.label.line_encoding_base64"></option>
-          <option value="binary" data-i18n="bigline.label.line_encoding_binary"></option>
-          <option value="hex" data-i18n="bigline.label.line_encoding_hex"></option>
-          <option value="ucs2" data-i18n="bigline.label.line_encoding_ucs2"></option>
-      </select>
-  </div>      
+   
   <div class="form-row">
       <label>&nbsp;</label>
       <input type="checkbox" id="node-input-keepEmptyLines" style="display: inline-block; width: auto; vertical-align: top;">
@@ -42,6 +31,18 @@
        <input type="text" id="node-input-filename" data-i18n="[placeholder]bigline.label.filename">
   </div>
 
+  <div class="form-row">
+      <label for="node-input-format"><i class="fa fa-sign-out"></i> <span data-i18n="bigline.label.format"></span></label>
+      <select id="node-input-format">    
+          <option value="utf8" data-i18n="bigline.label.line_encoding_utf8"></option>
+          <option value="ascii" data-i18n="bigline.label.line_encoding_ascii"></option>            
+          <option value="base64" data-i18n="bigline.label.line_encoding_base64"></option>
+          <option value="binary" data-i18n="bigline.label.line_encoding_binary"></option>
+          <option value="hex" data-i18n="bigline.label.line_encoding_hex"></option>
+          <option value="ucs2" data-i18n="bigline.label.line_encoding_ucs2"></option>
+      </select>
+  </div>   
+  
   <div class="form-row">
       <label for="node-input-name"><i class="fa fa-tag"></i><span data-i18n="bigline.label.name"></span></label>
       <input type="text" id="node-input-name" data-i18n="[placeholder]bigline.label.name">

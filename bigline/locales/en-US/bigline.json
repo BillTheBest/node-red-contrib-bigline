@@ -4,7 +4,7 @@
             "nodelabel": "Big Line",
             "filename": "Filename",
             "name": "Name",
-            "format": "Send as",
+            "format": "File as",
             "keepEmptyLines": "Keep empty lines",
 
             "line_encoding": "encoding",
