@@ -2,11 +2,9 @@
 
 "Line" parser for Big Nodes. Following the "big csv" and "big file" implementations, here is a node working the same way
 
-![alt tag](https://cloud.githubusercontent.com/assets/18165555/14586804/b4f80634-04a4-11e6-87c3-eed9f66df330.png)
+![alt tag](https://cloud.githubusercontent.com/assets/18165555/15456145/f8e60f10-2067-11e6-8252-c013bbe1eb12.png)
 
-![alt tag](https://cloud.githubusercontent.com/assets/18165555/14586805/b810c810-04a4-11e6-9c0e-6ef07fb75963.png)
-
-![alt tag](https://cloud.githubusercontent.com/assets/18165555/14586807/bb6d2620-04a4-11e6-9a08-10abb99c315f.png)
+![alt tag](https://cloud.githubusercontent.com/assets/18165555/15456148/01e3aee2-2068-11e6-88f1-27409e7d2e69.png)
 
 ## Installation
 ```bash
@@ -14,18 +12,19 @@ npm install node-red-contrib-bigline
 ```
 
 ## Principles for Big Nodes
- 
-###1 can handle big data or block mode
 
-  That means, in block mode, not only "one message is a whole file" and able to manage start/end control messages
+See [biglib](https://www.npmjs.com/package/node-red-biglib) for details on Big Nodes.
+`Big Lib` and subsequent `Big Nodes` are a family of nodes built for my own purpose. They are all designed to help me build a complete process for **production purposes**. For that I needed nodes able to:
 
-###2 send start/end messages as well as statuses
+* Flow **big volume** of data (memory control, work with buffers)
+* Work with *a flow of blocks* (buffers) (multiple payload within a single job)
+* Tell what *they are doing* with extended use of statuses (color/message)
+* Use their *second output for flow control* (start/stop/running/status)
+* *Reuse messages* in order to propagate _msgid, topic
+* Depends on **state of the art** libraries for parsing (csv, xml, xlsxs, line, ...)
+* Acts as **filters by default** (1 payload = 1 action) or **data generators** (block flow)
 
-  That means it uses a second output to give control states (start/end/running and error) control messages
-
-###3 tell visually what they are doing
-
-  Visual status on the node tells it's ready/running (blue), all is ok and done (green) or in error (red)
+All functionnalities are built under a library named `biglib` and all `Big Nodes` rely on it
 
 ## Usages
 
@@ -35,8 +34,10 @@ It works as a filter node that means it takes in the output of a "big file" node
 
 It has two options as byline offers them:
 
-- data format (utf8, latin, hexdec, base64, ucs2 and ascii)
-- keep empty lines
+* **data format** (utf8, latin, hexdec, base64, ucs2 and ascii). This option is only used when reading a file
+* **keep empty lines**
+
+It has a **filename** property used to read files in the specific given *data format**
 
 ## Dependencies
 
@@ -49,10 +50,10 @@ It has two options as byline offers them:
   Try pasting in the flow file below that shows the node behaviour 
 
 ```json
-[{"id":"986f3245.6790d","type":"inject","z":"1a05bf7a.e5fa41","name":"GO","topic":"","payload":"","payloadType":"str","repeat":"","crontab":"","once":false,"x":408,"y":81,"wires":[["e0dada50.1f2528"]]},{"id":"e0dada50.1f2528","type":"function","z":"1a05bf7a.e5fa41","name":"sample data","func":"msg.control = { state: \"standalone\" }\nmsg.payload = \"This is a line\\nThis is a second line\\n\\nThis is a ending line\"\nreturn msg;","outputs":1,"noerr":0,"x":568,"y":187,"wires":[["639ba72b.9c6458"]]},{"id":"639ba72b.9c6458","type":"bigline","z":"1a05bf7a.e5fa41","name":"big line","filename":"","format":"utf8","keepEmptyLines":true,"x":646,"y":378,"wires":[["6c763bc9.9389c4"],["fa1bf3be.05e41"]]},{"id":"6c763bc9.9389c4","type":"debug","z":"1a05bf7a.e5fa41","name":"lines","active":true,"console":"false","complete":"payload","x":849.5,"y":211,"wires":[]},{"id":"fa1bf3be.05e41","type":"debug","z":"1a05bf7a.e5fa41","name":"status","active":true,"console":"false","complete":"control","x":857.5,"y":305,"wires":[]},{"id":"f770faa7.088f08","type":"inject","z":"1a05bf7a.e5fa41","name":"GO keep empty lines","topic":"","payload":"","payloadType":"str","repeat":"","crontab":"","once":false,"x":153.5,"y":236,"wires":[["fa7eddd6.05812"]]},{"id":"36ee47fd.c911b8","type":"inject","z":"1a05bf7a.e5fa41","name":"GO ignore empty lines","topic":"","payload":"","payloadType":"str","repeat":"","crontab":"","once":false,"x":152.5,"y":334,"wires":[["f257642a.0da898"]]},{"id":"f257642a.0da898","type":"function","z":"1a05bf7a.e5fa41","name":"keepEmptyLines=false","func":"msg.config = { keepEmptyLines: false }\nreturn msg;","outputs":1,"noerr":0,"x":353.5,"y":280,"wires":[["e0dada50.1f2528"]]},{"id":"fa7eddd6.05812","type":"function","z":"1a05bf7a.e5fa41","name":"keepEmptyLines=true","func":"msg.config = { keepEmptyLines: true }\nreturn msg;","outputs":1,"noerr":0,"x":355.5,"y":187,"wires":[["e0dada50.1f2528"]]},{"id":"58cf9546.a7306c","type":"comment","z":"1a05bf7a.e5fa41","name":"This node accepts on the fly configuration","info":"","x":187,"y":151,"wires":[]},{"id":"7dc16d9.f823e94","type":"comment","z":"1a05bf7a.e5fa41","name":"4 lines of data with 1 empty line","info":"","x":627.5,"y":150,"wires":[]},{"id":"a0f7c336.5f084","type":"comment","z":"1a05bf7a.e5fa41","name":"control messages (start, stop, ...)","info":"","x":906.5,"y":348,"wires":[]},{"id":"b64b7e09.49b48","type":"comment","z":"1a05bf7a.e5fa41","name":"One message per line","info":"","x":875.5,"y":254,"wires":[]},{"id":"2822fcf.fd7dd04","type":"comment","z":"1a05bf7a.e5fa41","name":"Simple trigger","info":"","x":450.5,"y":42,"wires":[]},{"id":"d2035300.2dfcb","type":"inject","z":"1a05bf7a.e5fa41","name":"GO with an error","topic":"","payload":"","payloadType":"str","repeat":"","crontab":"","once":false,"x":131.5,"y":428,"wires":[["ffa25f8.f005da"]]},{"id":"ffa25f8.f005da","type":"function","z":"1a05bf7a.e5fa41","name":"Non existing file","func":"msg.payload = \"/A/Probably/Non/Existing/File\"\nreturn msg;","outputs":1,"noerr":0,"x":372.5,"y":428,"wires":[["639ba72b.9c6458"]]}]
+[{"id":"7f677e4c.80988","type":"inject","z":"d7f0f148.280f1","name":"GO","topic":"","payload":"","payloadType":"str","repeat":"","crontab":"","once":false,"x":430,"y":120,"wires":[["23aa1547.dc55ea"]]},{"id":"23aa1547.dc55ea","type":"function","z":"d7f0f148.280f1","name":"sample data","func":"msg.control = { state: \"standalone\" }\nmsg.payload = \"This is a line\\nThis is a second line\\n\\nThis is a ending line\"\nreturn msg;","outputs":1,"noerr":0,"x":610,"y":200,"wires":[["f219f15e.0de61"]]},{"id":"f219f15e.0de61","type":"bigline","z":"d7f0f148.280f1","name":"big line","filename":"","format":"utf8","keepEmptyLines":true,"x":800,"y":280,"wires":[["e68deb8e.197218"],["e1300565.1ecff8"]]},{"id":"e68deb8e.197218","type":"debug","z":"d7f0f148.280f1","name":"lines","active":true,"console":"false","complete":"payload","x":970,"y":200,"wires":[]},{"id":"e1300565.1ecff8","type":"debug","z":"d7f0f148.280f1","name":"status","active":true,"console":"false","complete":"control","x":970,"y":340,"wires":[]},{"id":"220d8b4e.ddf274","type":"inject","z":"d7f0f148.280f1","name":"GO keep empty lines","topic":"","payload":"","payloadType":"str","repeat":"","crontab":"","once":false,"x":140,"y":220,"wires":[["d72e181d.28d1e8"]]},{"id":"6d8a0609.9275f8","type":"inject","z":"d7f0f148.280f1","name":"GO ignore empty lines","topic":"","payload":"","payloadType":"str","repeat":"","crontab":"","once":false,"x":140,"y":300,"wires":[["d6aad846.295528"]]},{"id":"d6aad846.295528","type":"function","z":"d7f0f148.280f1","name":"keepEmptyLines=false","func":"msg.config = { keepEmptyLines: false }\nreturn msg;","outputs":1,"noerr":0,"x":380,"y":280,"wires":[["23aa1547.dc55ea"]]},{"id":"d72e181d.28d1e8","type":"function","z":"d7f0f148.280f1","name":"keepEmptyLines=true","func":"msg.config = { keepEmptyLines: true }\nreturn msg;","outputs":1,"noerr":0,"x":380,"y":200,"wires":[["23aa1547.dc55ea"]]},{"id":"44d2ade5.bb2d54","type":"comment","z":"d7f0f148.280f1","name":"This node accepts on the fly configuration","info":"","x":189,"y":150,"wires":[]},{"id":"396f3087.c690d","type":"comment","z":"d7f0f148.280f1","name":"4 lines of data with 1 empty line","info":"","x":690,"y":160,"wires":[]},{"id":"1aa13977.e55ec7","type":"comment","z":"d7f0f148.280f1","name":"control messages (start, stop, ...)","info":"","x":1050,"y":380,"wires":[]},{"id":"86fb9d2f.79046","type":"comment","z":"d7f0f148.280f1","name":"One message per line","info":"","x":1020,"y":240,"wires":[]},{"id":"a92d08b1.56d2f8","type":"comment","z":"d7f0f148.280f1","name":"Simple trigger","info":"","x":450,"y":80,"wires":[]},{"id":"24787944.db8786","type":"inject","z":"d7f0f148.280f1","name":"GO with an error","topic":"","payload":"","payloadType":"str","repeat":"","crontab":"","once":false,"x":120,"y":360,"wires":[["aa1b01cb.55e5"]]},{"id":"aa1b01cb.55e5","type":"function","z":"d7f0f148.280f1","name":"Non existing file","func":"msg.filename = \"/A/Probably/Non/Existing/File\"\nreturn msg;","outputs":1,"noerr":0,"x":600,"y":360,"wires":[["f219f15e.0de61"]]},{"id":"83a230ab.7c5dd","type":"comment","z":"d7f0f148.280f1","name":"Big Line sample usage","info":"","x":120,"y":40,"wires":[]}]
 ```
 
-![alt tag](https://cloud.githubusercontent.com/assets/18165555/14586797/49f684d2-04a4-11e6-890d-68a09b1ef5ab.png)
+![alt tag](https://cloud.githubusercontent.com/assets/18165555/15456149/0aca293c-2068-11e6-94d0-608d76a1186b.png)
 
 ## Author
 
